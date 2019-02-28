@@ -31,6 +31,7 @@
     state: present
     gpgcheck: "{{ ambari_yum_repo_gpgcheck }}"
     gpgkey: "{{ ambari_yum_repo_gpgkey }}"
+    proxy: "_none_"
   when: ansible_os_family|lower == "redhat"
 
 - name: Add the Ambari repository (zypper)
