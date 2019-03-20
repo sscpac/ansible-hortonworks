@@ -34,17 +34,6 @@
     enabled: yes
   ignore_errors: true
 
-- name: Add mappings to /etc/hosts
-  lineinfile:
-    path: /etc/hosts
-    regexp: "^{{ hostvars[item]['ansible_'~hostvars[item].ansible_default_ipv4.alias]['ipv4']['address'] }}.*"
-    line: "{{ hostvars[item]['ansible_'~hostvars[item].ansible_default_ipv4.alias]['ipv4']['address'] }} {{ hostvars[item]['ansible_nodename'] }}"
-    insertafter: "^127..*$"
-    state: present
-  with_items:
-    - "{{ groups['hadoop-cluster']|sort(reverse=True) }}"
-  when: not external_dns
-
 - name: Make sure /etc/security/limits.d exists
   file:
     path: /etc/security/limits.d
